@@ -65,6 +65,7 @@ public class Game implements KeyListener, ActionListener {
     int contadorDificultad=1;
     String defaultGamePath = "src/main/resources/games/game.txt";
     String defaultScenarioPath="src/main/resources/games/def_scenario.txt";
+    String defaultPath="src/main/resources/games/";
     PantallaPrincipal pantalla;
 
     // Timer
@@ -162,13 +163,23 @@ public class Game implements KeyListener, ActionListener {
         }
         else if(actionEvent.getSource()==pantalla.getGuardarFiles()){
             pantalla.getFileChooserSave().showSaveDialog(pantalla.getGuardarFiles());
-            File file=pantalla.getFileChooserSave().getSelectedFile();
-            FileUtilities.writeConcurrentListToFile(nivelActual.getTableroItems(),defaultGamePath);
-            System.out.println("File Path:"+file.getPath()+file.getName());
+            JFileChooser fileChooser=new JFileChooser(defaultPath);
+            int response=fileChooser.showSaveDialog(pantalla);
+            if(response==JFileChooser.APPROVE_OPTION){
+                File file=fileChooser.getSelectedFile();
+                String filePath=file.getPath();
+                GameFileManager.guardarPartida(ultimoNivel,contadorNiveles,contadorDificultad,filePath);
+                System.out.println("File Path: \""+filePath+"\"");
+            }
             System.out.println("actionEvent->guardarFiles");
 
         }
         else if(actionEvent.getSource()==pantalla.getCargarFiles()) {
+
+
+
+
+
 
             pantalla.getFileChooserLoad().showOpenDialog(pantalla.getCargarFiles());
             File file=pantalla.getFileChooserLoad().getSelectedFile();

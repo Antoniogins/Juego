@@ -35,8 +35,7 @@ public class PantallaPrincipal extends JFrame {
             vistaCuadrados,
             vistaFigurasGeometricas,
             reiniciarJuego;
-    JFileChooser fileChooserSave;
-    JFileChooser fileChooserLoad;
+
 
 
     public PantallaPrincipal(Game game){
@@ -70,8 +69,6 @@ public class PantallaPrincipal extends JFrame {
         vistaIconos=new JMenuItem("Vista en iconos");
         panelPausa=new JLabel("PAUSE");
         reiniciarJuego=new JMenuItem("Reiniciar partida");
-        fileChooserLoad=new JFileChooser(defaultPath);
-        fileChooserSave=new JFileChooser(defaultPath);
 
         //Asignamos el actionListener a los botones e items
         cargarDefault.addActionListener(controladorDelJuego);
@@ -84,8 +81,6 @@ public class PantallaPrincipal extends JFrame {
         vistaCuadrados.addActionListener(controladorDelJuego);
         vistaIconos.addActionListener(controladorDelJuego);
         vistaFigurasGeometricas.addActionListener(controladorDelJuego);
-        fileChooserSave.addActionListener(controladorDelJuego);
-        fileChooserLoad.addActionListener(controladorDelJuego);
         reiniciarJuego.addActionListener(controladorDelJuego);
 
         //Creamos cada uno de los menus e introducimos sus items
@@ -186,8 +181,6 @@ public class PantallaPrincipal extends JFrame {
     public JMenuItem getVistaFigurasGeometricas() {
         return vistaFigurasGeometricas;
     }
-    public JFileChooser getFileChooserSave() {return fileChooserSave;}
-    public JFileChooser getFileChooserLoad() {return fileChooserLoad;}
     public JMenuItem getReiniciarJuego() {return reiniciarJuego;
     }
 }

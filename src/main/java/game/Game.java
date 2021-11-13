@@ -162,7 +162,6 @@ public class Game implements KeyListener, ActionListener {
 
         }
         else if(actionEvent.getSource()==pantalla.getGuardarFiles()){
-            pantalla.getFileChooserSave().showSaveDialog(pantalla.getGuardarFiles());
             JFileChooser fileChooser=new JFileChooser(defaultPath);
             int response=fileChooser.showSaveDialog(pantalla);
             if(response==JFileChooser.APPROVE_OPTION){
@@ -175,38 +174,52 @@ public class Game implements KeyListener, ActionListener {
 
         }
         else if(actionEvent.getSource()==pantalla.getCargarFiles()) {
+            JFileChooser fileChooser=new JFileChooser(defaultPath);
+            int response=fileChooser.showOpenDialog(pantalla);
+            if(response==JFileChooser.APPROVE_OPTION){
+                File file=fileChooser.getSelectedFile();
+                String filePath=file.getPath();
+
+                Object[] objects=GameFileManager.cargarPartida(filePath);
+                nivelActual=(Nivel) objects[0];
+                timer.stop();
+                ridingHood=nivelActual.getRidingHood();
+                ridingHood.turnManual();
+                contadorNiveles=(Integer)objects[1];
+                contadorDificultad=(Integer) objects[2];
+
+
+                System.out.println("File Path: \""+filePath+"\"");
+            }
 
 
 
 
 
 
-            pantalla.getFileChooserLoad().showOpenDialog(pantalla.getCargarFiles());
-            File file=pantalla.getFileChooserLoad().getSelectedFile();
-            ConcurrentLinkedQueue<IGameObject> queue=FileUtilities.readConcurrentListFromFile(file.getPath());
-            System.out.println("File Path:"+file.getPath()+file.getName());
+            
 
             System.out.println("actionEvent->cargarFiles");
 
         }
-        else if(actionEvent.getSource()==pantalla.getFileChooserSave()) {
-
-            System.out.println("actionEvent->getFileChooserSave");
-
-        }
-        else if(actionEvent.getSource()==pantalla.getFileChooserLoad()) {
-
-            System.out.println("actionEvent->getFileChooserLoad");
-
-
-
-
-
-
-
-
-
-        }
+//        else if(actionEvent.getSource()==pantalla.getFileChooserSave()) {
+//
+//            System.out.println("actionEvent->getFileChooserSave");
+//
+//        }
+//        else if(actionEvent.getSource()==pantalla.getFileChooserLoad()) {
+//
+//            System.out.println("actionEvent->getFileChooserLoad");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//        }
         else if(actionEvent.getSource()== pantalla.getGuardarTablero()){
             //Guardamos los elementos del tablero actual al archivo por defecto
             GameFileManager.guardarTablero(ultimoNivel,defaultScenarioPath);

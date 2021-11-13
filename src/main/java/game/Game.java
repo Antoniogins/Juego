@@ -9,8 +9,6 @@ import views.PantallaPrincipal;
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static game.factories.KeyBoard.*;
@@ -132,7 +130,7 @@ public class Game implements KeyListener, ActionListener {
         }
         else if(actionEvent.getSource()==pantalla.getComportamientoAutomatico()){
             ridingHood.cambiarModoControl();
-            pantalla.getComportamientoAutomatico().setText(ridingHood.getModoControlString());
+            pantalla.getComportamientoAutomatico().setText(ridingHood.getEstadoControl());
             System.out.println("actionEvent->comportamientoAutomatico");
 
         }
@@ -141,7 +139,6 @@ public class Game implements KeyListener, ActionListener {
         else if(actionEvent.getSource()==pantalla.getGuardarDefault()){
             //Guardamos la partida actual
             GameFileManager.guardarPartida(ultimoNivel,contadorNiveles,contadorDificultad,defaultGamePath);
-//            NivelesFactory.guardarArrayDeTableros(nivelesCargados,defaultGamePath);
             System.out.println("actionEvent->guardarDefault");
 
         }
@@ -149,14 +146,11 @@ public class Game implements KeyListener, ActionListener {
             //Cargamos desde el archivo por defecto de partida el ultimo tablero con caperucita y sus puntuaciones, vida, etc
             Object[] objects=GameFileManager.cargarPartida(defaultGamePath);
             nivelActual=(Nivel) objects[0];
-            ridingHood= nivelActual.getRidingHood();
+            timer.stop();
+            ridingHood=nivelActual.getRidingHood();
+            ridingHood.turnManual();
             contadorNiveles=(Integer)objects[1];
             contadorDificultad=(Integer) objects[2];
-
-
-//            nivelesCargadosDeMemoria=NivelesFactory.obtenerTableros(defaultGamePath);
-//            nivelActual=nivelesCargadosDeMemoria.get(nivelesCargadosDeMemoria.size()-1);
-//            ridingHood=nivelActual.getRidingHood();
             System.out.println("actionEvent->cargarDefault");
 
 
@@ -205,21 +199,18 @@ public class Game implements KeyListener, ActionListener {
         else if(actionEvent.getSource()== pantalla.getGuardarTablero()){
             //Guardamos los elementos del tablero actual al archivo por defecto
             GameFileManager.guardarTablero(ultimoNivel,defaultScenarioPath);
-//            FileUtilities.writeConcurrentListToFile(ultimoNivel.getTableroItems(),defaultScenarioPath);
             System.out.println("actionEvent->guardarTablero");
 
         }
         else if(actionEvent.getSource()==pantalla.getCargarTablero()){
             //Cargamos los elementos del tablero y sustituimos caperucita que habia en el tablero por caperucita que tenemos en el juego
+            timer.stop();
             nivelActual=GameFileManager.cargarTablero(defaultScenarioPath);
             nivelActual.setRidingHood(ridingHood);
+            ridingHood.turnManual();
             ultimoNivel=new Nivel(nivelActual);
 
-
-//
-//            nivelActual=new Nivel();
-//            nivelActual.setTableroItems(FileUtilities.readConcurrentListFromFile(defaultScenarioPath));
-//            nivelActual.setRidingHood(ridingHood);
+            //TODO glitch al cargar tablero-> no se actualiza bien el boton de alternar modo automatico-manual de caperucita
             System.out.println("actionEvent->cargarTablero");
 
         }
@@ -240,18 +231,10 @@ public class Game implements KeyListener, ActionListener {
             timerEventProcess();
         }
 
-
-        //Se ejecuta cada vez que ocurre un evento
-        //TODO pposible comportamiento de dificultad-> los objetos activos se mueven cada x ticks de timer excepto caperucita-> al pasar los niveles
-        //la velocidad a la que se mueven
-
-
-
-
-
         //Actualizamos la vista con los objetos a cada iteraccion
         pantalla.pintarCanvas(nivelActual.getTableroItems());
         pantalla.pintarPanelEstadoCaperucita(nivelActual.getRidingHood().toString());
+        pantalla.getComportamientoAutomatico().setText(ridingHood.getEstadoControl());
 
     }
 
@@ -266,15 +249,24 @@ public class Game implements KeyListener, ActionListener {
         nivelActual=new Nivel(ridingHood=new RidingHood(new Position(0,0),1,1));
         ridingHood= nivelActual.getRidingHood();
         ultimoNivel=new Nivel(nivelActual);
+        //TODO mostrar una ventana notificando GAME OVER
+
         cargarSiguienteTablero(0);
     }
 
 
+    /**
+     * Metodo en el que se ejecutan las acciones necesarias cada evento de timer
+     * Se comprueban los movimientos de los objetos, las posiciones, las iteracciones entre ellos, si el nivel ha acabado, etc
+     * Finalmente se refresca la pantalla
+     */
     private void timerEventProcess(){
         //Caperucita se mueve
         nivelActual.getRidingHood().setNivel(nivelActual);
         nivelActual.getRidingHood().moveToNextPosition();
 
+        //TODO pposible comportamiento de dificultad-> los objetos activos se mueven cada x ticks de timer excepto caperucita-> al pasar los niveles
+        //la velocidad a la que se mueven
         //Movemos el resto de elementos activos (Bees, Flees y Spiders9
         for(IGameObject igo:nivelActual.getActiveObjectsWithoutRidingHood()){
             igo.setIGameObjects(nivelActual.getTableroItems());
@@ -302,7 +294,6 @@ public class Game implements KeyListener, ActionListener {
             restart();
             //TODO mostrar por pantalla datos de la partida y un boton para reiniciar desde partida predefinida o partida totalmente nueva
         }
-
     }
 
 
@@ -465,9 +456,13 @@ public class Game implements KeyListener, ActionListener {
     }
 
 
+    /**
+     * Refresca los datos del juego a la pantalla principal enviando el ConcurrentLinkedQueue con los objetos actuales
+     * y ese metodo refresca la pantalla, datos, canvas, etc
+     */
     private void refrescarPantalla(){
         pantalla.pintarCanvas(nivelActual.getTableroItems());
-        pantalla.getComportamientoAutomatico().setText(ridingHood.getModoControlString());
+        pantalla.getComportamientoAutomatico().setText(ridingHood.getEstadoControl());
     }
 
 

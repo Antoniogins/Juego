@@ -1,13 +1,11 @@
 package game.model;
 
-import common.IGameObject;
 import game.factories.FileUtilities;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class GameFileManager {
 

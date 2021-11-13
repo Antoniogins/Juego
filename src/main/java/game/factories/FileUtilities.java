@@ -87,11 +87,6 @@ public class FileUtilities {
     }
 
 
-    public static void writeJSONArrayToFile(JSONArray jsonArray,String filename) throws FileNotFoundException {
-        writeToFile(jsonArray.toString(),filename);
-
-    }
-
     public static ArrayList<JSONArray> readJSONArrayFromFile(String fileName){
         String line;
         BufferedReader fileReader;
@@ -133,7 +128,6 @@ public class FileUtilities {
     }  
 
 
-    //TODO eliminar despues de omplementar JSONARRAY
     public static void writeConcurrentListToFile(ConcurrentLinkedQueue<IGameObject> iGameObjects,String pathname){
         ArrayList<JSONObject> jsonObjects=new ArrayList<>();
         for(IGameObject igo:iGameObjects){
@@ -142,7 +136,6 @@ public class FileUtilities {
         writeJsonsToFile(jsonObjects,pathname);
     }
 
-    //TODO eliminar despues de implementar JSONARRAY
     public static ConcurrentLinkedQueue<IGameObject> readConcurrentListFromFile(String pathname){
         JSONArray jsonArray= readJSONsFromFile(pathname);
         ConcurrentLinkedQueue<IGameObject> iGameObjects=new ConcurrentLinkedQueue<>();

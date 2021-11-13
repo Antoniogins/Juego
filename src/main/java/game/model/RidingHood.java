@@ -75,23 +75,20 @@ public class RidingHood extends AbstractGameObject {
      *
      * @return un String para mostrar en pantalla un texto para cambiar de estado
      */
-    public String cambiarModoControl(){
+    public void cambiarModoControl(){
         if(modoAutomatico){
             modoAutomatico=false;
-            return "Activar modo automatico";
         }else{
             modoAutomatico=true;
             dX=0; dY=0;
-            return "Desactivar modo automatico";
         }
     }
+    public void turnManual(){
+        this.modoAutomatico=false;
+    }
 
-    public String getModoControlString(){
-        if(modoAutomatico){
-            return "Activar modo automatico";
-        }else{
-            return "Desactivar modo automatico";
-        }
+    public String getEstadoControl(){
+        return (modoAutomatico)?"Desactivar modo automatico":"Activar modo automatico";
     }
 
 

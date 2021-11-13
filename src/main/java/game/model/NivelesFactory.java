@@ -10,6 +10,10 @@ import java.util.Iterator;
 
 public class NivelesFactory {
 
+    /**
+     * @deprecated
+     */
+
 
     /**
      * Devuelve un JSONArray que contiene Tableros en formato JSONArray

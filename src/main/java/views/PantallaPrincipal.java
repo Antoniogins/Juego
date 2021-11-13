@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class PantallaPrincipal extends JFrame {
     ConcurrentLinkedQueue<IGameObject> iGameObjectConcurrentLinkedQueue;
     Game controladorDelJuego;
+    String defaultPath="src/main/resources/games/";
 
     //Paneles de vista
     public static final int CANVAS_WIDTH = 480;
@@ -69,8 +70,8 @@ public class PantallaPrincipal extends JFrame {
         vistaIconos=new JMenuItem("Vista en iconos");
         panelPausa=new JLabel("PAUSE");
         reiniciarJuego=new JMenuItem("Reiniciar partida");
-        fileChooserLoad=new JFileChooser();
-        fileChooserSave=new JFileChooser();
+        fileChooserLoad=new JFileChooser(defaultPath);
+        fileChooserSave=new JFileChooser(defaultPath);
 
         //Asignamos el actionListener a los botones e items
         cargarDefault.addActionListener(controladorDelJuego);

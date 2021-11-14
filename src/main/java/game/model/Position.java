@@ -83,5 +83,9 @@ public class Position implements IToJsonObject {
     public String toString(){
         return "[" + form.format(x) + ", " + form.format(y) + "]";
     }
+
+    public static Position generarPosicionRandom(){
+        return new Position((int) (Math.random() * 12), (int) (Math.random() * 12));
+    }
     
 }

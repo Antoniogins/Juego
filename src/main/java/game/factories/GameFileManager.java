@@ -1,13 +1,13 @@
-package game.model;
+package game.factories;
 
-import common.IGameObject;
 import game.factories.FileUtilities;
+import game.model.AbstractGameObject;
+import game.model.Nivel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class GameFileManager {
 
@@ -22,7 +22,7 @@ public class GameFileManager {
     public static final String partida="Partida";
 
 
-    public static void guardarPartida(Nivel nivels,int contadorDeNivelesss,int contadorDeDificultaddd,String gamePath){
+    public static void guardarPartida(Nivel nivels, int contadorDeNivelesss, int contadorDeDificultaddd, String gamePath){
         JSONObject jsonObject=new JSONObject();
         jsonObject.put(AbstractGameObject.TypeLabel,partida);
         jsonObject.put(nivel,nivels.toJSONObject());

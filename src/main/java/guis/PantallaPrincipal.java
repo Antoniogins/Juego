@@ -1,7 +1,8 @@
-package views;
+package guis;
 
-import game.Game;
+import game.GameController;
 import common.IGameObject;
+import views.GameCanvas;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +10,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class PantallaPrincipal extends JFrame {
     ConcurrentLinkedQueue<IGameObject> iGameObjectConcurrentLinkedQueue;
-    Game controladorDelJuego;
+    GameController controladorDelJuego;
+    String defaultPath="src/main/resources/games/";
 
     //Paneles de vista
     public static final int CANVAS_WIDTH = 480;
@@ -33,14 +35,15 @@ public class PantallaPrincipal extends JFrame {
             vistaIconos,
             vistaCuadrados,
             vistaFigurasGeometricas,
-            reiniciarJuego;
-    JFileChooser fileChooserSave;
-    JFileChooser fileChooserLoad;
+            reiniciarJuego,
+            cargarTableroArray,
+            guardarTableroArray;
 
 
-    public PantallaPrincipal(Game game){
-        super("Juego de la Caperucita");
-        controladorDelJuego=game;
+
+    public PantallaPrincipal(GameController gameController){
+        super("Juego de la Caperucita por Antonio Gines Buendia Lopez");
+        controladorDelJuego= gameController;
 
         //Creamos el panel donde se mostrara el juego en si (caperucita, flees, bees, etc)
         canvas=new GameCanvas(CANVAS_WIDTH,boxSize);
@@ -63,14 +66,14 @@ public class PantallaPrincipal extends JFrame {
         guardarFiles=new JMenuItem("Guardar en archivo...");
         cargarTablero=new JMenuItem("Cargar tablero...");
         guardarTablero=new JMenuItem("Guardar tablero...");
+        cargarTableroArray=new JMenuItem("Cargar array de tableros desde archivo...");
+        guardarTableroArray=new JMenuItem("Guardar array de tableros en archivo...");
         comportamientoAutomatico=new JButton("Activar modo automatico");
         vistaCuadrados=new JMenuItem("Vista en cuadrados");
         vistaFigurasGeometricas=new JMenuItem("Vista en figuras geometricas");
         vistaIconos=new JMenuItem("Vista en iconos");
         panelPausa=new JLabel("PAUSE");
         reiniciarJuego=new JMenuItem("Reiniciar partida");
-        fileChooserLoad=new JFileChooser();
-        fileChooserSave=new JFileChooser();
 
         //Asignamos el actionListener a los botones e items
         cargarDefault.addActionListener(controladorDelJuego);
@@ -79,12 +82,12 @@ public class PantallaPrincipal extends JFrame {
         guardarFiles.addActionListener(controladorDelJuego);
         cargarTablero.addActionListener(controladorDelJuego);
         guardarTablero.addActionListener(controladorDelJuego);
+        cargarTableroArray.addActionListener(controladorDelJuego);
+        guardarTableroArray.addActionListener(controladorDelJuego);
         comportamientoAutomatico.addActionListener(controladorDelJuego);
         vistaCuadrados.addActionListener(controladorDelJuego);
         vistaIconos.addActionListener(controladorDelJuego);
         vistaFigurasGeometricas.addActionListener(controladorDelJuego);
-        fileChooserSave.addActionListener(controladorDelJuego);
-        fileChooserLoad.addActionListener(controladorDelJuego);
         reiniciarJuego.addActionListener(controladorDelJuego);
 
         //Creamos cada uno de los menus e introducimos sus items
@@ -100,6 +103,9 @@ public class PantallaPrincipal extends JFrame {
         menuTablero=new JMenu("Tablero");
         menuTablero.add(cargarTablero);
         menuTablero.add(guardarTablero);
+        menuTablero.addSeparator();
+        menuTablero.add(cargarTableroArray);
+        menuTablero.add(guardarTableroArray);
 
         menuVistas=new JMenu("Vistas");
         menuVistas.add(vistaCuadrados);
@@ -153,6 +159,7 @@ public class PantallaPrincipal extends JFrame {
     public void pintarPanelEstadoCaperucita(String texto){
         panelEstadoCaperucita.setText(texto);
     }
+    public void setGameView(int identificador){canvas.setVistas(identificador);}
 
 
     public JButton getComportamientoAutomatico() {
@@ -185,8 +192,7 @@ public class PantallaPrincipal extends JFrame {
     public JMenuItem getVistaFigurasGeometricas() {
         return vistaFigurasGeometricas;
     }
-    public JFileChooser getFileChooserSave() {return fileChooserSave;}
-    public JFileChooser getFileChooserLoad() {return fileChooserLoad;}
-    public JMenuItem getReiniciarJuego() {return reiniciarJuego;
-    }
+    public JMenuItem getReiniciarJuego() {return reiniciarJuego;}
+    public JMenuItem getCargarTableroArray() {return cargarTableroArray;}
+    public JMenuItem getGuardarTableroArray() {return guardarTableroArray;}
 }

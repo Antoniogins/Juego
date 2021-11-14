@@ -32,7 +32,10 @@ public class IconsFactory implements IViewFactory {
         } 
         else if (gObj instanceof Spider){
            view = new VIcon(gObj, "src/main/resources/images/spider.jpg", length); 
-        } 
+        }
+        else if (gObj instanceof Wall){
+            view = new VIcon(gObj, "src/main/resources/images/iglu.png", length);
+        }
         else if (gObj instanceof Blossom){
            if (gObj.getValue() < 10){
                 view = new VIcon(gObj, "src/main/resources/images/dandelion2.jpg", length); 

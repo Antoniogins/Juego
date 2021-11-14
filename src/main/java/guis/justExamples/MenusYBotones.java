@@ -1,4 +1,4 @@
-package guis;
+package guis.justExamples;
 import java.awt.Color;
 import javax.swing.*;
 

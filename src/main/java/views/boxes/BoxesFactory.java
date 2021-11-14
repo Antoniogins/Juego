@@ -5,12 +5,9 @@
  */
 package views.boxes;
 
-import game.model.Bee;
-import game.model.Blossom;
-import game.model.Fly;
+import game.model.*;
 import common.IGameObject;
-import game.model.RidingHood;
-import game.model.Spider;
+
 import java.awt.Color;
 import common.IAWTGameView;
 import common.IViewFactory;
@@ -20,23 +17,26 @@ import common.IViewFactory;
  * @author juanangel
  */
 public class BoxesFactory implements IViewFactory {
-    
+
     public IAWTGameView getView(IGameObject gObj, int length) throws Exception {
-        
+
         IAWTGameView view = new VNumberedBox(gObj, length);
-                
+
         if (gObj instanceof Fly){
-           view = new VNumberedBox(gObj, length, Color.gray, "Fly"); ; 
+           view = new VNumberedBox(gObj, length, Color.gray, "Fly"); ;
         }
         else if (gObj instanceof Bee){
-           view = new VNumberedBox(gObj, length, Color.YELLOW, "Bee"); 
+           view = new VNumberedBox(gObj, length, Color.YELLOW, "Bee");
         }
         else if (gObj instanceof Spider){
            view = new VNumberedBox(gObj, length, Color.black, "Spider");
         }
         else if (gObj instanceof RidingHood){
            view = new VNumberedBox(gObj, length, Color.red, "Hood");
-        } 
+        }
+        else if (gObj instanceof Wall){
+            view = new VNumberedBox(gObj, length, Color.black, "Wall");
+        }
         else if (gObj instanceof Blossom){
             if (gObj.getValue() < 10){
                 view = new VNumberedBox(gObj, length, Color.pink, "DLion");

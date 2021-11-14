@@ -1,4 +1,4 @@
-package guis;
+package guis.justExamples;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

@@ -316,6 +316,7 @@ public class Game {
                 if(nivelesDeArchivo!=null){
                     if(iteratorNivelesArchivo.hasNext()){
                         nivelActual=(Nivel) iteratorNivelesArchivo.next();
+                        nivelActual.getTableroItems().removeIf(c->c instanceof RidingHood);
                         Nivel.setToBaseLevel(nivelActual);
                         Nivel.createHostileObjects(contadorNiveles,contadorDificultad,nivelActual);
                         nivelActual.addElement(ridingHood);

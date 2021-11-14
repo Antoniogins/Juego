@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package views;
+package views.squared;
 
 import common.IGameObject;
 import game.model.Position;
+import views.AbstractGameView;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;

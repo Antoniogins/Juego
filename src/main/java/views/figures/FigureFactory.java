@@ -31,9 +31,9 @@ public class FigureFactory implements IViewFactory {
         else if (gObj instanceof Spider){
            view = new FigureAraña(gObj, length);
         }  
-//        else if (gObj instanceof Wall){
-//            view = new views.figures.FigureWall(gObj, length);
-//         }
+        else if (gObj instanceof Wall){
+            view = new views.figures.FigureWall(gObj, length);
+         }
         else if (gObj instanceof Blossom){
            if (gObj.getValue() < 10){
                 view = new views.figures.FigureDandelion(gObj, length);

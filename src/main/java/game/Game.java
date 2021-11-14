@@ -52,6 +52,7 @@ public class Game implements KeyListener, ActionListener {
      */
 
 
+    //TODO implementar la clase Wall en todas partes
 
     //Definicion de las constantes del teclado
     int lastKey = DOWN_KEY;
@@ -366,6 +367,9 @@ public class Game implements KeyListener, ActionListener {
      */
     private void setInLimits() {
         int lastBox = (CANVAS_WIDTH / boxSize) - 1;
+
+        //TODO implementar muro
+        //TODO implementar las abejas mueren tras estar 3 veces en la misma posicion que caperucita
 
         for(IGameObject iGameObjectTemporal:nivelActual.getTableroItems()){
             if(iGameObjectTemporal!=null){

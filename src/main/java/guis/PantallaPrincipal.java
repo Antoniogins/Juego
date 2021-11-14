@@ -1,6 +1,6 @@
 package guis;
 
-import game.Game;
+import game.GameController;
 import common.IGameObject;
 import views.GameCanvas;
 
@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class PantallaPrincipal extends JFrame {
     ConcurrentLinkedQueue<IGameObject> iGameObjectConcurrentLinkedQueue;
-    Game controladorDelJuego;
+    GameController controladorDelJuego;
     String defaultPath="src/main/resources/games/";
 
     //Paneles de vista
@@ -39,9 +39,9 @@ public class PantallaPrincipal extends JFrame {
 
 
 
-    public PantallaPrincipal(Game game){
+    public PantallaPrincipal(GameController gameController){
         super("Juego de la Caperucita por Antonio Gines Buendia Lopez");
-        controladorDelJuego=game;
+        controladorDelJuego= gameController;
 
         //Creamos el panel donde se mostrara el juego en si (caperucita, flees, bees, etc)
         canvas=new GameCanvas(CANVAS_WIDTH,boxSize);

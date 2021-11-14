@@ -1,7 +1,6 @@
 package guis;
 
-import game.Game;
-import game.model.RidingHood;
+import game.GameController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +17,7 @@ public class PantallaGameOver extends JFrame {
     JLabel panelInformacion;
     JButton reiniciarJuego;
 
-    public PantallaGameOver(Game game){
+    public PantallaGameOver(GameController gameController){
         super("GAME OVER");
 
         panelInformacion=new JLabel("Panel de informacion de estadisticas");

@@ -11,6 +11,8 @@ import views.GameCanvas;
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import static game.factories.KeyBoard.*;
 
@@ -19,7 +21,7 @@ import static game.factories.KeyBoard.*;
  *
  *
  */
-public class Game implements KeyListener, ActionListener {
+public class GameController implements KeyListener, ActionListener {
 
     /**
      * Juego de La Caperucita Roja (Riding Hood)
@@ -71,6 +73,9 @@ public class Game implements KeyListener, ActionListener {
     PantallaPrincipal pantalla;
     PantallaGameOver pantallaGameOver;
 
+    ArrayList<Nivel> nivelesDeArchivo;
+    Iterator iteratorNivelesArchivo;
+
     // Timer
     Timer timer;
     int tick = 200;
@@ -88,7 +93,7 @@ public class Game implements KeyListener, ActionListener {
      *
      * @throws Exception
      */
-    public Game() throws Exception{
+    public GameController() throws Exception{
 
         //Inicializacion del juego
         nivelActual=new Nivel();

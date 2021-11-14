@@ -12,6 +12,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class Nivel {
     private ConcurrentLinkedQueue<IGameObject> tableroItems=new ConcurrentLinkedQueue<>();
 
+    public static final int GAME_FLY_LEVEL=9921;
+    public static final int GAME_BEE_LEVEL=2913;
+    public static final int GAME_SPIDER_LEVEL=1112;
+    public static final int GAME_BASE_LEVEL=99921;
+
 
     /**
      * Los niveles son un decorador para manejar los ConcurrentLinkedQueue<IGameObject> de manera mas sencilla
@@ -214,9 +219,8 @@ public class Nivel {
     }
     public String toString(){
         String n="";
-        Iterator it=tableroItems.iterator();
-        while (it.hasNext()){
-            n+=((IGameObject)it.next()).toJSONObject().toString()+"\n";
+        for(IGameObject igo:tableroItems){
+            n+=igo.toJSONObject().toString()+"\n";
         }
         return n;
     }
@@ -224,34 +228,34 @@ public class Nivel {
 
     /**
      * Genera niveles aleatorios en base a una dificultad dada
-     *
+     * @deprecated
      * @param
      */
     public static Nivel generarNivelRandom(int contadorNiveles,int dificultad,RidingHood ridingHood){
         Nivel nivel=new Nivel();
         nivel.addElement(ridingHood);
         switch (contadorNiveles) {
-            case 0:
-                createFourRandomBlossom(dificultad,nivel);
+            case GAME_BASE_LEVEL:
+                createLevelBase(dificultad,nivel);
                 break;
-            case 1:
+            case GAME_FLY_LEVEL:
                 for(int m=1; m<=dificultad;m++){
                     nivel.getTableroItems().add(new Fly(new Position((int) (Math.random() * 12), (int) (Math.random() * 12)), (int) (Math.random()*24), 1));
                 }
-                createFourRandomBlossom(dificultad,nivel);
+                createLevelBase(dificultad,nivel);
 
                 break;
-            case 2:
+            case GAME_BEE_LEVEL:
                 for(int m=1; m<=dificultad;m++){
                     nivel.getTableroItems().add(new Bee(new Position((int) (Math.random() * 12), (int) (Math.random() * 12)), (int) (Math.random()*24), 1));
                 }
-                createFourRandomBlossom(dificultad,nivel);
+                createLevelBase(dificultad,nivel);
                 break;
-            case 3:
+            case GAME_SPIDER_LEVEL:
                 for(int m=1; m<=dificultad;m++){
                     nivel.getTableroItems().add(new Spider(new Position((int) (Math.random() * 12), (int) (Math.random() * 12)), (int) (Math.random()*24), 1));
                 }
-                createFourRandomBlossom(dificultad,nivel);
+                createLevelBase(dificultad,nivel);
                 break;
             default:
 
@@ -262,12 +266,47 @@ public class Nivel {
         return nivel;
     }
 
+
     /**
-     * Este metodo crear 4 Blossom de posicion aleatoria y los almacena en inGameObjects
+     * Genera objetos hostiles (Spider,Bee y Fly) sobre un tablero dado
+     *
+     * @param level_type
+     * @param dificultad
+     * @param nivel
      */
-    private static void createFourRandomBlossom(int dificultad,Nivel nivel){
+    public static void createHostileObjects(int level_type,int dificultad, Nivel nivel){
+        switch (level_type) {
+            case GAME_FLY_LEVEL:
+                for(int m=1; m<=dificultad;m++){
+                    nivel.addElement(new Fly(Position.generarPosicionRandom(), (int) (Math.random()*24), 1));
+                }
+                break;
+            case GAME_BEE_LEVEL:
+                for(int m=1; m<=dificultad;m++){
+                    nivel.addElement(new Bee(Position.generarPosicionRandom(), (int) (Math.random()*24), 1));
+                }
+                break;
+            case GAME_SPIDER_LEVEL:
+                for(int m=1; m<=dificultad;m++){
+                    nivel.addElement(new Spider(Position.generarPosicionRandom(), (int) (Math.random()*24), 1));
+                }
+                break;
+        }
+    }
+
+
+    /**
+     * Este metodo crea la base del nivel (objetos fijos: blossom y wall) sobre un nivel dado
+     *
+     * @param dificultad
+     * @param nivel
+     */
+    public static void createLevelBase(int dificultad, Nivel nivel){
         for(int i=0;i<dificultad+4;i++){
-            nivel.getTableroItems().add(new Blossom(new Position((int) (Math.random() * 40), (int) (Math.random() * 12)), (int) (Math.random() * 12), 1));
+            nivel.addElement(new Blossom(new Position((int) (Math.random() * 40), (int) (Math.random() * 12)), (int) (Math.random() * 12), 1));
+        }
+        for(int m=0;m<dificultad+1;m++){
+            nivel.addElement(new Wall(new Position((int) (Math.random() * 40), (int) (Math.random() * 12)), (int) (Math.random() * 12), 1));
         }
 
     }

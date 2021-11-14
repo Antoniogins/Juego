@@ -5,9 +5,7 @@
  */
 package views;
 
-import common.IAWTGameView;
-import common.IGameObject;
-import common.IViewFactory;
+import common.*;
 
 /**
  *
@@ -15,13 +13,13 @@ import common.IViewFactory;
  */
 public abstract class AbstractGameView implements IAWTGameView {
     
-    protected IGameObject gObj;
+    protected IGameObject objects;
     protected int length = 20;
     
     public AbstractGameView(IGameObject obj, int length) throws Exception {
         
         if (obj != null){
-            gObj = obj;
+            objects = obj;
         }
         else {
             throw new Exception();

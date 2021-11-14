@@ -2,14 +2,15 @@ package game;
 
 
 import common.IGameObject;
-import game.factories.FileUtilities;
+import game.factories.GameFileManager;
 import game.model.*;
-import views.PantallaPrincipal;
+import guis.PantallaGameOver;
+import guis.PantallaPrincipal;
+import views.GameCanvas;
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.File;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static game.factories.KeyBoard.*;
 
@@ -67,6 +68,7 @@ public class Game implements KeyListener, ActionListener {
     String defaultScenarioPath="src/main/resources/games/def_scenario.txt";
     String defaultPath="src/main/resources/games/";
     PantallaPrincipal pantalla;
+    PantallaGameOver pantallaGameOver;
 
     // Timer
     Timer timer;
@@ -94,7 +96,9 @@ public class Game implements KeyListener, ActionListener {
 
         //Creamos una pantalla principal
         pantalla=new PantallaPrincipal(this);
+        pantalla.setGameView(GameCanvas.VISTA_SQUARE);
         pantalla.pintarPanelEstadoCaperucita(ridingHood.toString());
+
 
 
 
@@ -152,16 +156,11 @@ public class Game implements KeyListener, ActionListener {
             ridingHood.turnManual();
             contadorNiveles=(Integer)objects[1];
             contadorDificultad=(Integer) objects[2];
+            ultimoNivel=new Nivel(nivelActual);
             System.out.println("actionEvent->cargarDefault");
-
-
-
-
-
-
-
         }
         else if(actionEvent.getSource()==pantalla.getGuardarFiles()){
+            //Guardamos la partida actual en un archivo que seleccionaremos desde una ventana JFileChoose
             JFileChooser fileChooser=new JFileChooser(defaultPath);
             int response=fileChooser.showSaveDialog(pantalla);
             if(response==JFileChooser.APPROVE_OPTION){
@@ -174,12 +173,12 @@ public class Game implements KeyListener, ActionListener {
 
         }
         else if(actionEvent.getSource()==pantalla.getCargarFiles()) {
+            //Cargamos una partida almacenada en un archivo que seleccionamos desde una ventana JFileChoose
             JFileChooser fileChooser=new JFileChooser(defaultPath);
             int response=fileChooser.showOpenDialog(pantalla);
             if(response==JFileChooser.APPROVE_OPTION){
                 File file=fileChooser.getSelectedFile();
                 String filePath=file.getPath();
-
                 Object[] objects=GameFileManager.cargarPartida(filePath);
                 nivelActual=(Nivel) objects[0];
                 timer.stop();
@@ -187,39 +186,12 @@ public class Game implements KeyListener, ActionListener {
                 ridingHood.turnManual();
                 contadorNiveles=(Integer)objects[1];
                 contadorDificultad=(Integer) objects[2];
-
-
+                ultimoNivel=new Nivel(nivelActual);
                 System.out.println("File Path: \""+filePath+"\"");
             }
-
-
-
-
-
-
-            
-
             System.out.println("actionEvent->cargarFiles");
 
         }
-//        else if(actionEvent.getSource()==pantalla.getFileChooserSave()) {
-//
-//            System.out.println("actionEvent->getFileChooserSave");
-//
-//        }
-//        else if(actionEvent.getSource()==pantalla.getFileChooserLoad()) {
-//
-//            System.out.println("actionEvent->getFileChooserLoad");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//        }
         else if(actionEvent.getSource()== pantalla.getGuardarTablero()){
             //Guardamos los elementos del tablero actual al archivo por defecto
             GameFileManager.guardarTablero(ultimoNivel,defaultScenarioPath);
@@ -233,23 +205,38 @@ public class Game implements KeyListener, ActionListener {
             nivelActual.setRidingHood(ridingHood);
             ridingHood.turnManual();
             ultimoNivel=new Nivel(nivelActual);
-
-            //TODO glitch al cargar tablero-> no se actualiza bien el boton de alternar modo automatico-manual de caperucita
             System.out.println("actionEvent->cargarTablero");
-
         }
+
+
+
+
+
+
+        //TODO
         else if(actionEvent.getSource()==pantalla.getVistaCuadrados()){
+            pantalla.setGameView(GameCanvas.VISTA_SQUARE);
             System.out.println("actionEvent->vistaCuadrados");
 
         }
         else if(actionEvent.getSource()==pantalla.getVistaFigurasGeometricas()){
+            pantalla.setGameView(GameCanvas.VISTA_FIGURES);
             System.out.println("actionEvent->vistaFigurasGeometricas");
 
         }
         else if(actionEvent.getSource()==pantalla.getVistaIconos()){
+            pantalla.setGameView(GameCanvas.VISTA_ICONOS);
             System.out.println("actionEvent->vistaIconos");
 
         }
+
+
+
+
+
+
+
+
         else if(actionEvent.getSource()==timer){
             //Ejecutamos el proceso que controla la logica del juego
             timerEventProcess();
@@ -267,6 +254,9 @@ public class Game implements KeyListener, ActionListener {
      * Cuando caperucita pierde todas sus vidas el juego se tiene que reiniciar y mostrar una pantalla de GAME OVER con las estadisticas de partida
      */
     private void restart(){
+        pantallaGameOver=new PantallaGameOver(this);
+        pantallaGameOver.setStats(ridingHood.getValue());
+
         timer.stop();
         contadorDificultad=0;
         contadorNiveles=0;

@@ -30,7 +30,7 @@ public class VSquareClover extends AbstractGameView {
         
         Graphics2D g2 = (Graphics2D) g;
         
-        Position coord = gObj.getPosition();
+        Position coord = objects.getPosition();
         
         
         Color c = g2.getColor();

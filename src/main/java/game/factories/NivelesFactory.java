@@ -1,7 +1,8 @@
-package game.model;
+package game.factories;
 
 import common.IGameObject;
 import game.factories.FileUtilities;
+import game.model.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

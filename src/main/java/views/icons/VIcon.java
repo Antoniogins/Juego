@@ -22,7 +22,7 @@ public class VIcon extends AbstractGameView {
 
     @Override
     public void draw(Graphics g) {       
-        Position coord = gObj.getPosition();
+        Position coord = objects.getPosition();
 	g.drawImage(image, length * coord.getX(), length * coord.getY(), length, length, null);		
     }
 }

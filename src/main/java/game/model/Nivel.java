@@ -1,15 +1,13 @@
 package game.model;
 
 import common.IGameObject;
-import game.factories.FileUtilities;
+import game.factories.GameFileManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.stream.Collectors;
 
 public class Nivel {
     private ConcurrentLinkedQueue<IGameObject> tableroItems=new ConcurrentLinkedQueue<>();

@@ -1,7 +1,8 @@
-package views;
+package guis;
 
 import game.Game;
 import common.IGameObject;
+import views.GameCanvas;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,7 +40,7 @@ public class PantallaPrincipal extends JFrame {
 
 
     public PantallaPrincipal(Game game){
-        super("Juego de la Caperucita");
+        super("Juego de la Caperucita por Antonio Gines Buendia Lopez");
         controladorDelJuego=game;
 
         //Creamos el panel donde se mostrara el juego en si (caperucita, flees, bees, etc)
@@ -149,6 +150,7 @@ public class PantallaPrincipal extends JFrame {
     public void pintarPanelEstadoCaperucita(String texto){
         panelEstadoCaperucita.setText(texto);
     }
+    public void setGameView(int identificador){canvas.setVistas(identificador);}
 
 
     public JButton getComportamientoAutomatico() {
@@ -181,6 +183,6 @@ public class PantallaPrincipal extends JFrame {
     public JMenuItem getVistaFigurasGeometricas() {
         return vistaFigurasGeometricas;
     }
-    public JMenuItem getReiniciarJuego() {return reiniciarJuego;
-    }
+    public JMenuItem getReiniciarJuego() {return reiniciarJuego;}
+
 }

@@ -1,9 +1,7 @@
-{"mode":0,"lifes":5,"GIT_type":"RidingHood","position":{"GIT_type":"Position","x":3,"y":2},"value":-95}
-{"mode":0,"lifes":1,"GIT_type":"Bee","position":{"GIT_type":"Position","x":10,"y":11},"value":17}
-{"mode":0,"lifes":1,"GIT_type":"Bee","position":{"GIT_type":"Position","x":10,"y":9},"value":9}
-{"mode":0,"lifes":1,"GIT_type":"Blossom","position":{"GIT_type":"Position","x":22,"y":8},"value":7}
-{"mode":0,"lifes":1,"GIT_type":"Blossom","position":{"GIT_type":"Position","x":25,"y":7},"value":3}
-{"mode":0,"lifes":1,"GIT_type":"Blossom","position":{"GIT_type":"Position","x":38,"y":6},"value":0}
-{"mode":0,"lifes":1,"GIT_type":"Blossom","position":{"GIT_type":"Position","x":36,"y":3},"value":9}
-{"mode":0,"lifes":1,"GIT_type":"Blossom","position":{"GIT_type":"Position","x":32,"y":2},"value":5}
-{"mode":0,"lifes":1,"GIT_type":"Blossom","position":{"GIT_type":"Position","x":22,"y":10},"value":11}
+{"mode":0,"lifes":1,"GIT_type":"Blossom","position":{"GIT_type":"Position","x":36,"y":8},"value":11}
+{"mode":0,"lifes":1,"GIT_type":"Blossom","position":{"GIT_type":"Position","x":18,"y":6},"value":1}
+{"mode":0,"lifes":1,"GIT_type":"Blossom","position":{"GIT_type":"Position","x":29,"y":0},"value":6}
+{"mode":0,"lifes":1,"GIT_type":"Blossom","position":{"GIT_type":"Position","x":36,"y":3},"value":11}
+{"mode":0,"lifes":1,"GIT_type":"Blossom","position":{"GIT_type":"Position","x":36,"y":3},"value":11}
+{"mode":0,"lifes":1,"GIT_type":"Spider","position":{"GIT_type":"Position","x":1,"y":6},"value":18}
+{"mode":0,"lifes":4,"GIT_type":"RidingHood","position":{"GIT_type":"Position","x":10,"y":0},"value":73}

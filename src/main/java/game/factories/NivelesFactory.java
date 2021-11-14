@@ -11,10 +11,6 @@ import java.util.Iterator;
 
 public class NivelesFactory {
 
-    /**
-     * @deprecated
-     */
-
 
     /**
      * Devuelve un JSONArray que contiene Tableros en formato JSONArray
@@ -41,28 +37,14 @@ public class NivelesFactory {
 
                     while (ite.hasNext()){
                         JSONObject igoJSON=(JSONObject) ite.next();
-                        if(igoJSON.get(AbstractGameObject.TypeLabel).equals("Fly")){
-                            nivel.addElement(new Fly(igoJSON));
-                        }if(igoJSON.get(AbstractGameObject.TypeLabel).equals("Bee")){
-                            nivel.addElement(new Bee(igoJSON));
-                        }if(igoJSON.get(AbstractGameObject.TypeLabel).equals("Spider")){
-                            nivel.addElement(new Spider(igoJSON));
-                        }if(igoJSON.get(AbstractGameObject.TypeLabel).equals("Blossom")){
+                        if(igoJSON.get(AbstractGameObject.TypeLabel).equals("Blossom")){
                             nivel.addElement(new Blossom(igoJSON));
-                        }if(igoJSON.get(AbstractGameObject.TypeLabel).equals("RidingHood")){
-                            nivel.addElement(new RidingHood(igoJSON));
                         }
-
-
-
-
-
+                        else if(igoJSON.get(AbstractGameObject.TypeLabel).equals("Wall")){
+                            nivel.addElement(new Wall(igoJSON));
+                        }
                     }
-
-
-
                 }
-
                 tipex.add(nivel);
             }
         } catch (Exception e){

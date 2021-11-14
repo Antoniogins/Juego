@@ -7,6 +7,8 @@ package game.model;
 
 import org.json.JSONObject;
 
+import java.util.stream.Collectors;
+
 public class Spider extends AbstractGameObject{
     public Spider(){}
     public Spider(Position position) {
@@ -35,7 +37,7 @@ public class Spider extends AbstractGameObject{
 
     @Override
     public Position moveToNextPosition() {
-        RidingHood ridingHood=(RidingHood) iGameObjects.toArray()[0];
+        RidingHood ridingHood=(RidingHood) iGameObjects.stream().filter(c-> c instanceof RidingHood).limit(1).collect(Collectors.toList()).toArray()[0];
         approachTo(ridingHood.position);
         return position;
     }

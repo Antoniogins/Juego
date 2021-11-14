@@ -35,7 +35,9 @@ public class PantallaPrincipal extends JFrame {
             vistaIconos,
             vistaCuadrados,
             vistaFigurasGeometricas,
-            reiniciarJuego;
+            reiniciarJuego,
+            cargarTableroArray,
+            guardarTableroArray;
 
 
 
@@ -64,6 +66,8 @@ public class PantallaPrincipal extends JFrame {
         guardarFiles=new JMenuItem("Guardar en archivo...");
         cargarTablero=new JMenuItem("Cargar tablero...");
         guardarTablero=new JMenuItem("Guardar tablero...");
+        cargarTableroArray=new JMenuItem("Cargar array de tableros desde archivo...");
+        guardarTableroArray=new JMenuItem("Guardar array de tableros en archivo...");
         comportamientoAutomatico=new JButton("Activar modo automatico");
         vistaCuadrados=new JMenuItem("Vista en cuadrados");
         vistaFigurasGeometricas=new JMenuItem("Vista en figuras geometricas");
@@ -78,6 +82,8 @@ public class PantallaPrincipal extends JFrame {
         guardarFiles.addActionListener(controladorDelJuego);
         cargarTablero.addActionListener(controladorDelJuego);
         guardarTablero.addActionListener(controladorDelJuego);
+        cargarTableroArray.addActionListener(controladorDelJuego);
+        guardarTableroArray.addActionListener(controladorDelJuego);
         comportamientoAutomatico.addActionListener(controladorDelJuego);
         vistaCuadrados.addActionListener(controladorDelJuego);
         vistaIconos.addActionListener(controladorDelJuego);
@@ -97,6 +103,9 @@ public class PantallaPrincipal extends JFrame {
         menuTablero=new JMenu("Tablero");
         menuTablero.add(cargarTablero);
         menuTablero.add(guardarTablero);
+        menuTablero.addSeparator();
+        menuTablero.add(cargarTableroArray);
+        menuTablero.add(guardarTableroArray);
 
         menuVistas=new JMenu("Vistas");
         menuVistas.add(vistaCuadrados);
@@ -184,5 +193,6 @@ public class PantallaPrincipal extends JFrame {
         return vistaFigurasGeometricas;
     }
     public JMenuItem getReiniciarJuego() {return reiniciarJuego;}
-
+    public JMenuItem getCargarTableroArray() {return cargarTableroArray;}
+    public JMenuItem getGuardarTableroArray() {return guardarTableroArray;}
 }

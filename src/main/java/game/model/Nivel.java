@@ -8,13 +8,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.Collectors;
 
 public class Nivel {
     private ConcurrentLinkedQueue<IGameObject> tableroItems=new ConcurrentLinkedQueue<>();
 
-    public static final int GAME_FLY_LEVEL=9921;
-    public static final int GAME_BEE_LEVEL=2913;
-    public static final int GAME_SPIDER_LEVEL=1112;
+    public static final int GAME_FLY_LEVEL=1;
+    public static final int GAME_BEE_LEVEL=2;
+    public static final int GAME_SPIDER_LEVEL=3;
     public static final int GAME_BASE_LEVEL=99921;
 
 
@@ -56,14 +57,21 @@ public class Nivel {
 
                     if(jsonObject.get(AbstractGameObject.TypeLabel).equals("RidingHood")){
                         tableroItems.add(new RidingHood(jsonObject));
-                    }else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Bee")){
+                    }
+                    else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Bee")){
                         tableroItems.add(new Bee(jsonObject));
-                    }else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Spider")){
+                    }
+                    else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Spider")){
                         tableroItems.add(new Spider(jsonObject));
-                    }else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Fly")){
+                    }
+                    else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Fly")){
                         tableroItems.add(new Fly(jsonObject));
-                    }else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Blossom")){
+                    }
+                    else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Blossom")){
                         tableroItems.add(new Blossom(jsonObject));
+                    }
+                    else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Wall")){
+                        tableroItems.add(new Wall(jsonObject));
                     }
 
                 }
@@ -88,14 +96,21 @@ public class Nivel {
 
                     if(jsonObject.get(AbstractGameObject.TypeLabel).equals("RidingHood")){
                         tableroItems.add(new RidingHood(jsonObject));
-                    }else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Bee")){
+                    }
+                    else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Bee")){
                         tableroItems.add(new Bee(jsonObject));
-                    }else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Spider")){
+                    }
+                    else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Spider")){
                         tableroItems.add(new Spider(jsonObject));
-                    }else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Fly")){
+                    }
+                    else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Fly")){
                         tableroItems.add(new Fly(jsonObject));
-                    }else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Blossom")){
+                    }
+                    else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Blossom")){
                         tableroItems.add(new Blossom(jsonObject));
+                    }
+                    else if(jsonObject.get(AbstractGameObject.TypeLabel).equals("Wall")){
+                        tableroItems.add(new Wall(jsonObject));
                     }
                 }
             }
@@ -105,32 +120,31 @@ public class Nivel {
 
 
     public RidingHood getRidingHood(){
-        //TODO implementar WOW
         for(IGameObject i:tableroItems){
-            if(i.getClass().getSimpleName().equals("RidingHood")){
+            if(i instanceof RidingHood){
                 return (RidingHood) i;
             }
         }
         return null;
     }
     public void setRidingHood(RidingHood ridingHood){
-        for(IGameObject iGameObject:tableroItems){
-            if(iGameObject!=null && iGameObject.getClass().getSimpleName().equals("RidingHood")){
-                tableroItems.remove(iGameObject);
-            }
-        }
+        tableroItems.removeIf(c->c instanceof RidingHood);
+
+//        for(IGameObject iGameObject:tableroItems){
+//            if(iGameObject!=null && iGameObject.getClass().getSimpleName().equals("RidingHood")){
+//                tableroItems.remove(iGameObject);
+//            }
+//        }
         tableroItems.add(ridingHood);
     }
 
     public ArrayList<Blossom> getBlossomsArrayList(){
         ArrayList<Blossom> blossoms=new ArrayList<>();
         for(IGameObject igo:this.tableroItems){
-            if(igo.getClass().getSimpleName().equals("Blossom")){
+            if(igo instanceof Blossom){
                 blossoms.add((Blossom) igo);
             }
         }
-
-
         return blossoms;
     }
 
@@ -180,6 +194,18 @@ public class Nivel {
         return arrayList;
     }
 
+    public ArrayList<Wall> getWallsArrayList(){
+        ArrayList<Wall> arrayList=new ArrayList<>();
+        Iterator iterator=this.tableroItems.iterator();
+        while (iterator.hasNext()){
+            IGameObject iGameObject=(IGameObject) iterator.next();
+            if(iGameObject instanceof Wall){
+                arrayList.add((Wall) iGameObject);
+            }
+        }
+        return arrayList;
+    }
+
 
     /**
      * Devuelve un objeto JSON que contiene: AbstractGameObject.TypeLabel:"Nivel" y "content":JSONArray (con todos los elementos del trablero)
@@ -205,17 +231,16 @@ public class Nivel {
             tableroItems.add(iGameObject);
         }
     }
-
+    public void removeElement(IGameObject iGameObject){
+        if(iGameObject!=null){
+            tableroItems.remove(iGameObject);
+        }
+    }
     public ConcurrentLinkedQueue<IGameObject> getTableroItems() {
         return this.tableroItems;
     }
     public void setTableroItems(ConcurrentLinkedQueue<IGameObject> tableroItems) {
         this.tableroItems = tableroItems;
-    }
-    public void removeElement(IGameObject iGameObject){
-        if(iGameObject!=null){
-            tableroItems.remove(iGameObject);
-        }
     }
     public String toString(){
         String n="";
@@ -223,47 +248,6 @@ public class Nivel {
             n+=igo.toJSONObject().toString()+"\n";
         }
         return n;
-    }
-
-
-    /**
-     * Genera niveles aleatorios en base a una dificultad dada
-     * @deprecated
-     * @param
-     */
-    public static Nivel generarNivelRandom(int contadorNiveles,int dificultad,RidingHood ridingHood){
-        Nivel nivel=new Nivel();
-        nivel.addElement(ridingHood);
-        switch (contadorNiveles) {
-            case GAME_BASE_LEVEL:
-                createLevelBase(dificultad,nivel);
-                break;
-            case GAME_FLY_LEVEL:
-                for(int m=1; m<=dificultad;m++){
-                    nivel.getTableroItems().add(new Fly(new Position((int) (Math.random() * 12), (int) (Math.random() * 12)), (int) (Math.random()*24), 1));
-                }
-                createLevelBase(dificultad,nivel);
-
-                break;
-            case GAME_BEE_LEVEL:
-                for(int m=1; m<=dificultad;m++){
-                    nivel.getTableroItems().add(new Bee(new Position((int) (Math.random() * 12), (int) (Math.random() * 12)), (int) (Math.random()*24), 1));
-                }
-                createLevelBase(dificultad,nivel);
-                break;
-            case GAME_SPIDER_LEVEL:
-                for(int m=1; m<=dificultad;m++){
-                    nivel.getTableroItems().add(new Spider(new Position((int) (Math.random() * 12), (int) (Math.random() * 12)), (int) (Math.random()*24), 1));
-                }
-                createLevelBase(dificultad,nivel);
-                break;
-            default:
-
-                break;
-
-        }
-
-        return nivel;
     }
 
 
@@ -296,6 +280,20 @@ public class Nivel {
 
 
     /**
+     * Comprueba si la posicion dada esta ocupada por un blossom dentro del nivel dado
+     */
+    public static boolean checkBlossomOverWall(Nivel nivel, Position position){
+        //TODO no funciona xDDD
+        for(IGameObject bls:nivel.getTableroItems()){
+            if(bls.getPosition().isEqual(position)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    /**
      * Este metodo crea la base del nivel (objetos fijos: blossom y wall) sobre un nivel dado
      *
      * @param dificultad
@@ -303,12 +301,41 @@ public class Nivel {
      */
     public static void createLevelBase(int dificultad, Nivel nivel){
         for(int i=0;i<dificultad+4;i++){
-            nivel.addElement(new Blossom(new Position((int) (Math.random() * 40), (int) (Math.random() * 12)), (int) (Math.random() * 12), 1));
+            nivel.addElement(new Blossom(Position.generarPosicionRandom(), (int) (Math.random() * 12), 1));
         }
         for(int m=0;m<dificultad+1;m++){
-            nivel.addElement(new Wall(new Position((int) (Math.random() * 40), (int) (Math.random() * 12)), (int) (Math.random() * 12), 1));
+            boolean continu=true;
+
+            do{
+                Position request=Position.generarPosicionRandom();
+                //Comprobamos si la posicion para la pared esta encima de un blossom (es un problema)
+                if(checkBlossomOverWall(nivel,request)){
+                    nivel.addElement(new Wall(request, (int) (Math.random() * 12), 1));
+                    continu=false;
+                }
+            }while (continu);
+
+
+
         }
 
+
+
+    }
+
+
+    /**
+     * Este metodo hace que el nivel que le pasamos se convierta en un nivel base (unicamente contiene blossoms y walls)
+     * @param nivel
+     */
+    public static void setToBaseLevel(Nivel nivel){
+        for(IGameObject igo:nivel.getTableroItems()){
+            if(igo!=null){
+                if(igo instanceof Bee || igo instanceof Fly || igo instanceof Spider || igo instanceof RidingHood){
+                    nivel.removeElement(igo);
+                }
+            }
+        }
     }
 
 

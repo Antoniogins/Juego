@@ -54,6 +54,9 @@ public class RidingHood extends AbstractGameObject {
             dX=0;
             dY=0;
             Blossom closest=(Blossom) getClosest(this.position, nivel.getBlossomsArrayList());
+
+
+            System.out.println("This is the closest position to approach: "+closest.getPosition());
             approachTo(closest.position);
         }else{
             this.position.x+=dX;
@@ -98,6 +101,7 @@ public class RidingHood extends AbstractGameObject {
      * @param lastKey
      */
     public void setDirection(int lastKey) {
+        modoAutomatico=false;
         switch (lastKey) {
             case UP_KEY:
                 moveUp();

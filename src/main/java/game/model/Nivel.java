@@ -87,6 +87,7 @@ public class Nivel {
     }
 
     public Nivel(JSONObject jsonObject){
+
         if(jsonObject!=null){
             if(jsonObject.get(AbstractGameObject.TypeLabel).equals(GameFileManager.nivel)){
                 JSONArray jsonArray=(JSONArray) jsonObject.get("content");
@@ -310,6 +311,7 @@ public class Nivel {
                 Position request=Position.generarPosicionRandom();
                 //Comprobamos si la posicion para la pared esta encima de un blossom (es un problema)
                 if(checkBlossomOverWall(nivel,request)){
+                    //TODO o no funciona esto
                     nivel.addElement(new Wall(request, (int) (Math.random() * 12), 1));
                     continu=false;
                 }

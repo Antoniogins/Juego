@@ -83,6 +83,15 @@ public class Game {
     int boxSize = 40;
 
 
+    //TODO implementar contadores estadisticos
+    //Contadores para almacenar las estadisticas
+    private int bees_cruzados;
+    private int flees_muertos;
+    private int spiders_muertos;
+    private int blossoms_recogidos;
+    private int cantidadDeVecesQueTeHasCruzadoConUnMuro;
+
+
     /**
      * Unico constructor posible -
      *
@@ -401,7 +410,7 @@ public class Game {
             }
 
         }
-        indicaciones=LEVEL_MEMORIA; //TODO REVISAR
+        indicaciones=LEVEL_MEMORIA;
     }
 
     public void guardarTablero(String filePath, int tipoDeCargaDeTablero){

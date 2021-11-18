@@ -77,42 +77,6 @@ public class GameCanvas extends JPanel {
         
         drawGrid(g);
 
-//        try {
-//            IAWTGameView gameView = null;
-//
-//
-//            for (IGameObject gObj : gObjects) {
-//                if (gObj != null) {
-//                    if (gObj instanceof Blossom) {
-//                        gameView = new VNumberedBox(gObj, squareEdge, Color.pink, "Blossom");
-//                    }
-//                    else if (gObj instanceof Bee) {
-//                        gameView = new VNumberedBox(gObj, squareEdge, Color.yellow, "Bee");
-//                    }
-//                    else if (gObj instanceof Fly) {
-//                        gameView = new VNumberedBox(gObj, squareEdge, Color.green, "Fly");
-//                    }
-//                    else if (gObj instanceof Spider) {
-//                        gameView = new VNumberedCircle(gObj, squareEdge, Color.black, "Spider");
-//                    }
-//                    else if (gObj instanceof RidingHood) {
-//                        gameView = new VNumberedBox(gObj, squareEdge, Color.red, "RHood");
-//                    }
-//
-//
-//                    if (gameView != null)
-//                        gameView.draw(g);
-//                }
-//            }
-//
-//
-//
-//
-//
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-
         for (IGameObject gObj : gObjects) {
             if (gObj != null) {
                 IAWTGameView view;

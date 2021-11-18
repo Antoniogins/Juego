@@ -26,8 +26,6 @@ import static game.factories.KeyBoard.*;
  */
 public class GameController implements KeyListener, ActionListener {
 
-    //TODO implementar la clase Wall en todas partes
-
     //Definimos el juego
     Game game;
 
@@ -198,7 +196,6 @@ public class GameController implements KeyListener, ActionListener {
     @Override
     public void keyPressed(KeyEvent keyEvent) {
 
-        //TODO si presionamos una tecla de flecha cambiar modo automatico a manual directamente
         lastKey=keyEvent.getKeyCode();
 
 
@@ -231,7 +228,6 @@ public class GameController implements KeyListener, ActionListener {
 
     public void restart(){
         timer.stop();
-        //TODO mostrar una ventana notificando GAME OVER
 
     }
 }

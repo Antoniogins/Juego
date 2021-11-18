@@ -35,7 +35,6 @@ public class Fly extends AbstractGameObject{
 
     @Override
     public Position moveToNextPosition() {
-        //TODO todavia por implementar
         this.position.x+=(int) (Math.random()*3)-1;
         this.position.y+=(int) (Math.random()*3)-1;
         return position;

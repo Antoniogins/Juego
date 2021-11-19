@@ -1,4 +1,4 @@
-package com.mycompany.pit_2019_6;
+package com.antoniogins.juego;
 
 import game.GameController;
 
